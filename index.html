@@ -12,12 +12,13 @@
     <h1>EURO Exchange Rates || European Union || November 2018</h1>
   </header>
   <section>
-    <button onClick="render()">Fetch and display data</button>
-    <button onClick="fetchCurrencyData()">Fetch data</button>
-    <button onClick="displayData()">Display data</button>
+    <button onClick="rerender()">Update Graph</button>
+    <!-- <button onClick="fetchCurrencyData()">Fetch data</button>
+    <button onClick="displayData()">Display data</button> -->
   </section>
   <section id="output">
   </section>
+  <select id="selectBase"></select>
   <script type="text/javascript">
     render();
   </script>
