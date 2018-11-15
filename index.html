@@ -1,1 +1,26 @@
-Hello world.
+<!doctype html>
+<html>
+
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bare-css@2.0.3/css/bare.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>EURO Exchange Rates || European Union || November 2018</h1>
+  </header>
+  <section>
+    <button onClick="render()">Fetch and display data</button>
+    <button onClick="fetchCurrencyData()">Fetch data</button>
+    <button onClick="displayData()">Display data</button>
+  </section>
+  <section id="output">
+  </section>
+  <script type="text/javascript">
+    render();
+  </script>
+</body>
+
+</html>

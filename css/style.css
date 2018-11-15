@@ -1,0 +1,97 @@
+:root {
+  --bg: #FEAAFE;
+  --standard-margin: 5px;
+  --column-one-bg: #90afc5;
+  --column-two-bg: #336b87;
+  --column-three-bg: #2a3132;
+  --column-four-bg: #763626;
+  --column-five-bg: #3151B2;
+  --column-six-bg: #545217;
+  --column-seven-bg: #A09C1C;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 20px;
+}
+
+header h1 {
+  text-align: center;
+}
+
+section {
+  margin: 0 auto;
+}
+
+#output {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 120px;
+  grid-gap: 5px;
+  height: 150px;
+  align-items: end;
+  text-align: center;
+  /* max-width: 800px; */
+}
+
+.currencyContainer {
+  height: 120px;
+  display: grid;
+  grid-template-rows: 120px 30px;
+  align-items: end;
+}
+
+.currencyBar {
+  align-self: flex-end;
+  text-align: center;
+  width: 100%;
+}
+
+.currencyContainer:nth-child(1) div {
+  background-color: var(--column-one-bg);
+  color: var(--column-one-bg);
+}
+
+.currencyContainer:nth-child(2) div {
+  background-color: var(--column-two-bg);
+  color: var(--column-two-bg);
+}
+
+.currencyContainer:nth-child(3) div {
+  background-color: var(--column-three-bg);
+  color: var(--column-three-bg);
+}
+
+.currencyContainer:nth-child(4) div {
+  background-color: var(--column-four-bg);
+  color: var(--column-four-bg);
+}
+
+.currencyContainer:nth-child(5) div {
+  background-color: var(--column-five-bg);
+  color: var(--column-five-bg);
+}
+
+.currencyContainer:nth-child(6) div {
+  background-color: var(--column-six-bg);
+  color: var(--column-six-bg);
+}
+
+.currencyContainer:nth-child(7) div {
+  background-color: var(--column-seven-bg);
+  color: var(--column-seven-bg);
+}
+
+.currencyContainer:nth-child(8) div {
+  background-color: var(--column-one-bg);
+  color: var(--column-one-bg);
+}
+
+.currencyContainer:hover .currencyBarLabel,
+.currencyContainer:hover .currencyBar {
+  color: white;
+  font-weight: bold;
+  padding-top: calc(var(--standard-margin) * 4);
+  transition: 1s;
+}
