@@ -1,13 +1,11 @@
 let exchangeRates = [];
-//console.log(exchangeRates);
-let baseURL = "https://api.exchangeratesapi.io/latest?base="
+const baseURL = "https://api.exchangeratesapi.io/latest?base="
 let baseAcronym = "EUR";
 let fetchURL = baseURL + baseAcronym;
-//console.log(fetchURL);
+const colorPalete = ['#e6194B', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#42d4f4', '#f032e6', '#bfef45', '#fabebe', '#469990', '#e6beff', '#9A6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#a9a9a9']
+let count = 0;
 
- function fetchCurrencyData() {
-//   console.log(baseAcronym);
-//   console.log(fetchURL);
+function fetchCurrencyData() {
   fetch(fetchURL)
     .then(response => response.json())
     .then(fetchedData => {
@@ -17,8 +15,6 @@ let fetchURL = baseURL + baseAcronym;
       //console.log(rawData);
       //console.log(exchangesBase);
       //console.log(exchangeRates);
-      //console.log(typeof exchangeRates);
-      //state.currencyData = data;
       displaySelect();
       displayData();
     });
@@ -28,7 +24,6 @@ function displaySelect() {
   let selectOutput = document.querySelector('#selectBase');
   for (let key in exchangeRates) {
     let item = exchangeRates[key];
-    //console.log(key);
     let newSelect = document.createElement('option');
     newSelect.textContent = key;
     selectOutput.appendChild(newSelect);
@@ -38,51 +33,52 @@ function displaySelect() {
 function displayData() {
   let output = document.querySelector('#output');
   output.innerHTML = '';
-  //console.log(exchangeRates);
-  //console.log(typeof exchangeRates);
-  //console.log(exchangeRates.rates);
+  //Find the minimum value
+  let exchangeArray = Object.values(exchangeRates);
+  let minimumValue = Math.min.apply(null, exchangeArray);
+  //console.log(minimumValue);
   for (let key in exchangeRates) {
+    //Select column color
+    if (count < 20) {
+      columnColor = colorPalete[count];
+      count = count + 1;
+    } else {
+      count = 0;
+    };
+    //Begin building content
     let item = exchangeRates[key];
-    const baseValue = 1;
-    let propotionalRate = baseValue / item;
-    if (propotionalRate > .5) {
-      //console.log('item is: ' + item + '. ' + 'exchangeRates[key] is: ' + exchangeRates[key] + 'key is: ' + key);
-      //Build proportion to Base Currency
-      let proportionalHeight = 'height:' + 100 * propotionalRate + 'px';
-      //console.log(proportionalHeight);
-      //console.log(propotionalRate);
-      // Build column
-      let currencyBar = document.createElement('div');
-      currencyBar.setAttribute('class', 'currencyBar');
-      currencyBar.setAttribute('style', proportionalHeight);
-      currencyBar.textContent = item;
-      //Build column label
-      let currencyBarLabel = document.createElement('div');
-      currencyBarLabel.setAttribute('class', 'currencyBarLabel');
-      currencyBarLabel.textContent = key;
-      //Build container
-      let currencyContainer = document.createElement('div');
-      currencyContainer.setAttribute('class', 'currencyContainer');
-      currencyContainer.appendChild(currencyBar);
-      currencyContainer.appendChild(currencyBarLabel);
-      //Append container to output div
-      output.appendChild(currencyContainer);
-    }
+    //Ensure tallest column is not taller than graph
+    let propotionalRate = minimumValue / item;
+    //Set column height
+    let proportionalHeight = 'height:' + 300 * propotionalRate + 'px';
+    //Column
+    let currencyBar = document.createElement('div');
+    currencyBar.setAttribute('class', 'currencyBar');
+    let backgroundColorCol = 'background-color:' + columnColor;
+    currencyBar.style.cssText = proportionalHeight + "; " + backgroundColorCol;
+    currencyBar.setAttribute('alt', item);
+    //Label
+    let currencyBarLabel = document.createElement('div');
+    currencyBarLabel.setAttribute('class', 'currencyBarLabel');
+    let currencyBarLabelSpan = document.createElement('span');
+    currencyBarLabelSpan.textContent = item;
+    currencyBarLabel.textContent = key;
+    currencyBarLabel.appendChild(currencyBarLabelSpan);
+    //Container
+    let currencyContainer = document.createElement('div');
+    currencyContainer.setAttribute('class', 'currencyContainer');
+    currencyContainer.appendChild(currencyBar);
+    currencyContainer.appendChild(currencyBarLabel);
+    //Append to #output
+    output.appendChild(currencyContainer);
   }
-};
-
-function render() {
-  fetchCurrencyData();
-  displayData();
 };
 
 function rerender() {
   let output = document.querySelector('#output');
   output.innerHTML = '';
   let input = document.querySelector('#selectBase');
-  //console.log(input);
   let value = input.value;
-  //console.log(value);
   baseAcronym = input.value;
   console.log(baseAcronym);
   fetchURL = baseURL + baseAcronym;
