@@ -22,12 +22,14 @@ function fetchCurrencyData() {
 
 function displaySelect() {
   let selectOutput = document.querySelector('#selectBase');
+  //Event listenter
+  selectOutput.addEventListener("change", rerender, false);
   for (let key in exchangeRates) {
     let item = exchangeRates[key];
     let newSelect = document.createElement('option');
     newSelect.textContent = key;
     selectOutput.appendChild(newSelect);
-  }
+  };
 };
 
 function displayData() {
